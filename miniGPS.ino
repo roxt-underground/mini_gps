@@ -37,6 +37,12 @@ void setup() {
   display.display();
   draw_logo(&display);
   delay(1200);
+  
+#ifdef LOGOTEST
+  test_speed(&display);
+  delay(2000);
+#endif
+
 }
 
 void loop() {
@@ -71,7 +77,7 @@ void loop() {
     last_data_ts = millis();
   }
   else {
-    if (millis() - last_data_ts > 5000) draw_logo();
+    if (millis() - last_data_ts > 5000) draw_logo(&display);
   }
   gps.stats(&chars, &sentences, &failed);
   Serial.print(" CHARS=");
@@ -82,14 +88,4 @@ void loop() {
   Serial.println(failed);
   if (chars == 0)
     Serial.println("** No characters received from GPS: check wiring **");
-}
-
-void draw_logo() {
-  display.clearDisplay();
-
-  display.drawBitmap(
-    (display.width()  - LOGO_WIDTH ) / 2,
-    (display.height() - LOGO_HEIGHT) / 2,
-    logo_bmp, LOGO_WIDTH, LOGO_HEIGHT, 1);
-  display.display();
 }
