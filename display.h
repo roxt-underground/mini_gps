@@ -3,7 +3,7 @@
 #define LOGO_HEIGHT   32
 #define LOGO_WIDTH    48
 
-#define LOGOTEST
+// #define LOGOTEST
 
 static const unsigned char PROGMEM logo_bmp[] = 
 {
