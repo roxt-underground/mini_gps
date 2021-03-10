@@ -19,6 +19,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 TinyGPS gps;
 SoftwareSerial ss(6, 5);
 unsigned long last_data_ts;
+const short timezone = 3;
 
 void log_cords(TinyGPS *_gps);
 
@@ -51,6 +52,10 @@ void loop() {
   bool newData = false;
   unsigned long chars;
   unsigned short sentences, failed;
+  int year;
+  byte month, day, hour, minute, second, hundredths;
+  unsigned long age;
+
   for (unsigned long start = millis(); millis() - start < 1000;)
   {
     while (ss.available())
@@ -64,7 +69,8 @@ void loop() {
   if (newData)
   {
     log_cords(&gps);
-    draw_speed(&display, gps.f_speed_kmph());
+    gps.crack_datetime(&year, &month, &day, &hour, &minute, &second, &hundredths, &age);
+    draw_speed(&display, gps.f_speed_kmph(), (hour+timezone) % 24, minute);
     last_data_ts = millis();
   }
   else {

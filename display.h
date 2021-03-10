@@ -3,7 +3,7 @@
 #define LOGO_HEIGHT   32
 #define LOGO_WIDTH    48
 
-// #define LOGOTEST
+//#define LOGOTEST
 
 static const unsigned char PROGMEM logo_bmp[] = 
 {
@@ -51,7 +51,8 @@ static const unsigned char PROGMEM bar_bmp[] {
 };
 
 void draw_logo(Adafruit_SSD1306 *display);
-void draw_speed(Adafruit_SSD1306 *display,float speed);
+void draw_speed(Adafruit_SSD1306 *display, float speed, short hour=-1, byte minute=0);
+void draw_time(Adafruit_SSD1306 *display, short hour, byte minute);
 
 #ifdef LOGOTEST
 void test_speed(Adafruit_SSD1306 *display);
